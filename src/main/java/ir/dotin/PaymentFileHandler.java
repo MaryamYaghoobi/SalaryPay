@@ -23,7 +23,7 @@ public class PaymentFileHandler {
     public static List<PaymentRecord> createPaymentFile_New(String debtorDepositNumber, String creditorDepositNumberPrefix, int creditorCount) throws IOException {
         List<PaymentRecord> paymentRecords = new ArrayList<>();
         paymentRecords.add(new PaymentRecord(DEBTOR, debtorDepositNumber, generateRandomAmount()));
-        for (int i = 1 ; i <= creditorCount ; i++) {
+        for (int i = 1; i <= creditorCount; i++) {
             paymentRecords.add(new PaymentRecord(CREDITOR, creditorDepositNumberPrefix + i, generateRandomAmount()));
         }
         writePaymentRecordsToFile(paymentRecords);
