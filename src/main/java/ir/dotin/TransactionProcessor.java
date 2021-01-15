@@ -18,13 +18,15 @@ public class TransactionProcessor extends Transaction {
     //--------------------------------------------------------
     public static boolean validateDeposit(Deposit deposit) {
 
-        return getAmount() + deposit.getInitialBalance() <= deposit.getUpperBound();
+//        return getAmount() + deposit.getInitialBalance() <= deposit.getUpperBound();
+        return false;//TODO
     }
 
     //---------------------------------------------
     public static boolean validateWithdraw(Deposit deposit) {
 
-        return getAmount() <= deposit.getInitialBalance();
+//        return getAmount() <= deposit.getInitialBalance();
+        return false;//TODO
     }
 
     //----------------------------------------------
@@ -45,16 +47,18 @@ public class TransactionProcessor extends Transaction {
             if (debtorBalance > 0 && debtorBalance < creditorBalance) {
                 throw new InadequateInitialBalanceException("Not enough balance!");
             } else if (validateDeposit(deposit)) {
-                List<Transaction> transactions = deposit.doDepositTransaction(this);
-                return transactions;
+//                List<Transaction> transactions = deposit.doDepositTransaction(this);
+//                return transactions;
+                return null;//TODO
             } else
                 // return false;
 
                 //  System.out.println("Upper bound balance restriction violated!");  // log4j]
                 //   else
                 if (validateWithdraw(deposit)) {
-                    List<Transaction> transactions = deposit.doWithdrawTransaction(this);
-                    return transactions;
+//                    List<Transaction> transactions = deposit.doWithdrawTransaction(this);
+//                    return transactions;
+                    return null;//TODO
                 } else {
                     throw new ViolatedUpperBoundException("Upper bound balance restriction violated!");
                 }
