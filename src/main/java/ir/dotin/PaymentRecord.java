@@ -4,6 +4,7 @@ public class PaymentRecord {
     String type;
     String depositNumber;
     Integer amount;
+    //TODO: just to test commit
 
     public PaymentRecord(String type, String depositNumber, Integer amount) {
         this.type = type;
