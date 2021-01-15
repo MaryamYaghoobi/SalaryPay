@@ -1,14 +1,47 @@
 package ir.dotin;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.List;
+public class PaymentRecord {
+    String type;
+    String depositNumber;
+    Integer amount;
 
-public class PaymentRecord extends PaymentFileHandler {
-    public static List<Deposit> readDepositsFromFile() throws IOException {
+    public PaymentRecord(String type, String depositNumber, Integer amount) {
+        this.type = type;
+        this.depositNumber = depositNumber;
+        this.amount = amount;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getDepositNumber() {
+        return depositNumber;
+    }
+
+    public void setDepositNumber(String depositNumber) {
+        this.depositNumber = depositNumber;
+    }
+
+    public Integer getAmount() {
+        return amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    @Override
+    public String toString() {
+        return type + "\t" + depositNumber + "\t" + amount;
+    }
+
+    //<editor-fold desc="Old Code">
+    /*public static List<Deposit> readDepositsFromFile() throws IOException, URISyntaxException {
 
         //   Logger logger = Logger.getLogger("IoInfoLog");
         List<Deposit> deposits = new ArrayList<>();
@@ -17,7 +50,7 @@ public class PaymentRecord extends PaymentFileHandler {
         String currentLine = reader.readLine();
         while (currentLine != null) {
             String[] ingredients = currentLine.split("\t");
-           if (ingredients[1].matches("^[0-9].*$")) {
+            if (ingredients[1].matches("^[0-9].*$")) {
 
                 deposit.setDepositType(ingredients[0].trim());
                 deposit.setDepositNumber((ingredients[1].trim()));
@@ -28,7 +61,8 @@ public class PaymentRecord extends PaymentFileHandler {
        // }
 
 
-         }
+        }
         return deposits;
-    }
+    }*/
+    //</editor-fold>
 }

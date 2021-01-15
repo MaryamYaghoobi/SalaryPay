@@ -1,8 +1,5 @@
 package ir.dotin;
 
-import ir.dotin.exception.InadequateInitialBalanceException;
-import ir.dotin.exception.ViolatedUpperBoundException;
-
 import java.io.BufferedReader;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -47,46 +44,46 @@ public class BalanceFileHandler {
         currentLine = readerInvent.readLine();
         return paymentRecords;
     }
-        // return deposits;}
-       // else{
-          //  throw new InadequateInitialBalanceException("Not enough balance!");
+    // return deposits;}
+    // else{
+    //  throw new InadequateInitialBalanceException("Not enough balance!");
 
-              // return paymentRecords;
+    // return paymentRecords;
     //-------------------------------
-              public static List<Transaction> createFinalBalanceFile( List<PaymentRecord> depositBalances)
-                      throws IOException{
-                  Path pathInventupdate = Paths.get("B://InventoryFileUpdate.txt");
-                  Files.createFile(pathInventupdate);
-                  Deposit deposit = new Deposit();
-                  List<Deposit> deposits = new ArrayList<>();
+    public static List<Transaction> createFinalBalanceFile(List<PaymentRecord> depositBalances)
+            throws IOException {
+        Path pathInventupdate = Paths.get("B://InventoryFileUpdate.txt");
+        Files.createFile(pathInventupdate);
+        Deposit deposit = new Deposit();
+        List<Deposit> deposits = new ArrayList<>();
 
-                  FileOutputStream InventoryFile = new FileOutputStream("B://InventoryFileUpdate.txt", true);
-                  BufferedReader readerInvent = null;
+        FileOutputStream InventoryFile = new FileOutputStream("B://InventoryFileUpdate.txt", true);
+        BufferedReader readerInvent = null;
 
-                  readerInvent = Files.newBufferedReader(pathInventupdate, Charset.forName("UTF-8"));
-
-
-                  String currentLine = null;
-                  String resultText = "";
-
-                  currentLine = readerInvent.readLine();
-
-                  String[] ingredients = currentLine.split("\t");
-                  // if (ingredients[1].matches("^[0-9].*$")) {
-
-                  deposit.setDepositNumber(String.valueOf(paymentRecords));
-                  // deposit.setDepositNumber((ingredients[1].trim()));
-                  deposit.setInitalBalance((int) depositBalances);
-                  deposits.add(deposit);
+        readerInvent = Files.newBufferedReader(pathInventupdate, Charset.forName("UTF-8"));
 
 
-                  currentLine = readerInvent.readLine();
-                 // return depositBalances;
-                  resultText +=  deposit.getDepositNumber() + "\t" + deposit.getInitialBalance() + "\n";
+        String currentLine = null;
+        String resultText = "";
 
-                  return null;
-              }
-              }
+        currentLine = readerInvent.readLine();
+
+        String[] ingredients = currentLine.split("\t");
+        // if (ingredients[1].matches("^[0-9].*$")) {
+
+        /*deposit.setDepositNumber(String.valueOf(paymentRecords));
+        // deposit.setDepositNumber((ingredients[1].trim()));
+        deposit.setInitalBalance((int) depositBalances);*/
+        deposits.add(deposit);
+
+
+        currentLine = readerInvent.readLine();
+        // return depositBalances;
+        resultText += deposit.getDepositNumber() + "\t" + deposit.getInitialBalance() + "\n";
+
+        return null;
+    }
+}
 
 
 
