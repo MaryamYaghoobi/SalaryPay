@@ -16,21 +16,21 @@ public class TransactionProcessor extends Transaction {
     //}
 
     //--------------------------------------------------------
-    public static boolean validateDeposit(Deposit deposit) {
+   /* public boolean validateDeposit(Deposit deposit) {
 
-//        return getAmount() + deposit.getInitialBalance() <= deposit.getUpperBound();
-        return false;//TODO
-    }
+      return getAmount() + deposit.getInitialBalance() <= deposit.getUpperBound();
+       // return false;
+    }*/
 
     //---------------------------------------------
     public static boolean validateWithdraw(Deposit deposit) {
 
-//        return getAmount() <= deposit.getInitialBalance();
-        return false;//TODO
+        return getAmount() <= deposit.getInitialBalance();
+        //return false;//TODO
     }
 
     //----------------------------------------------
-    public static List<Transaction> prcessPaymentRecord(List<PaymentRecord> paymentRecords, List<PaymentRecord> depositBalances)
+    public static List<Transaction> prcessPaymentRecord(List<BalanceRecord> depositBalances, List<PaymentRecord> paymentRecords)
             throws ViolatedUpperBoundException, InadequateInitialBalanceException {
         List<Deposit> depositList = TransactionProcessor.getDeposits();
 
@@ -46,26 +46,24 @@ public class TransactionProcessor extends Transaction {
 
             if (debtorBalance > 0 && debtorBalance < creditorBalance) {
                 throw new InadequateInitialBalanceException("Not enough balance!");
-            } else if (validateDeposit(deposit)) {
+                //    } else if (validateDeposit(deposit)) {
 //                List<Transaction> transactions = deposit.doDepositTransaction(this);
 //                return transactions;
-                return null;//TODO
+                //return null;//TODO
             } else
                 // return false;
 
                 //  System.out.println("Upper bound balance restriction violated!");  // log4j]
                 //   else
                 if (validateWithdraw(deposit)) {
-//                    List<Transaction> transactions = deposit.doWithdrawTransaction(this);
-//                    return transactions;
-                    return null;//TODO
+                    List<Transaction> transactions = deposit.doWithdrawTransaction((Transaction) deposit);
+                    return transactions;
+
                 } else {
                     throw new ViolatedUpperBoundException("Upper bound balance restriction violated!");
                 }
-            //  System.out.println("Not enough balance!");  // log4j]
 
         }
-        //   return true;
 
 
 //-----------------------

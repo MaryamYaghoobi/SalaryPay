@@ -1,16 +1,8 @@
 package ir.dotin;
 
-import ir.dotin.exception.InadequateInitialBalanceException;
-import ir.dotin.exception.ViolatedUpperBoundException;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.List;
-
 public class Transaction extends Deposit {
     private String transactionType;
-    private int amount;
+    private static int amount;
 
     public String getTransactionType() {
         return transactionType;
@@ -21,7 +13,7 @@ public class Transaction extends Deposit {
         return this;
     }
 
-    public int getAmount() {
+    public static int getAmount() {
         return amount;
     }
 

@@ -1,19 +1,62 @@
 package ir.dotin;
 
-import java.io.BufferedReader;
-import java.io.FileOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.charset.Charset;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+
+import static ir.dotin.PaymentFileHandler.generateRandomAmount;
 
 public class BalanceFileHandler {
+    private static final String BALANCE_FILE_PATH = "D://Balance.txt";
+    static List<BalanceRecord> balanceRecords = new ArrayList<>();
+    static String debtorDepositNumber;
+    static String creditorDepositNumberPrefix;
+/*
+    public static void main(String[] args) throws IOException {
+        createInitialBalanceFile(balanceRecords);
+    }*/
 
-    public static List<PaymentRecord> createInitialBalanceFile(List<PaymentRecord> paymentRecords) throws IOException {
+    public static List<BalanceRecord> createInitialBalanceFile(List<BalanceRecord> balanceRecords) throws FileNotFoundException {
+        balanceRecords.add(new BalanceRecord(debtorDepositNumber, generateRandomAmount()));
+        for (int i = 1; i <= 1000; i++) {
+            balanceRecords.add(new BalanceRecord(creditorDepositNumberPrefix, generateRandomAmount()));
+        }
+        writeBalanceRecordsToFile(balanceRecords);
+        return balanceRecords;
+    }
+
+    //--------------------------------
+    private static void writeBalanceRecordsToFile(List<BalanceRecord> balanceRecords) throws FileNotFoundException {
+        try (PrintWriter printWriter = new PrintWriter(BALANCE_FILE_PATH)) {
+            for (BalanceRecord balanceRecord : balanceRecords) {
+                printWriter.println(balanceRecord.toString());
+            }
+            printWriter.close();
+        }
+    }
+
+    //----------------------------------------
+    public static String createFinalBalanceFile(List<BalanceRecord> depositBalances)
+            throws IOException {
+        String resultFinalBalance = "";
+
+        Path pathBalanceUpdate = Paths.get("B://BalanceUpdate.txt");
+        Files.createFile(pathBalanceUpdate);
+        writeBalanceRecordsToFile(balanceRecords);
+        resultFinalBalance += debtorDepositNumber + "\t" + creditorDepositNumberPrefix + "\t" + depositBalances + "\n";
+
+        return resultFinalBalance;
+    }
+
+//----------------------------------------------------------------------------------------
+/*
+
+   /* public static List<PaymentRecord> createInitialBalanceFile(List<PaymentRecord> paymentRecords) throws IOException {
         Random random = new Random();
         //   final int depositRandom = random.nextInt(1000);
         final double amountRandom = random.nextInt(1000000 - 100000) + 100000;
@@ -74,7 +117,7 @@ public class BalanceFileHandler {
         /*deposit.setDepositNumber(String.valueOf(paymentRecords));
         // deposit.setDepositNumber((ingredients[1].trim()));
         deposit.setInitalBalance((int) depositBalances);*/
-        deposits.add(deposit);
+      /*  deposits.add(deposit);
 
 
         currentLine = readerInvent.readLine();
@@ -83,12 +126,10 @@ public class BalanceFileHandler {
 
         return null;
     }
+    */
+
+
 }
-
-
-
-
-
 
 
 

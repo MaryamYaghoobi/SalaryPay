@@ -35,10 +35,12 @@ public class PaymentRecord {
         this.amount = amount;
     }
 
+
     @Override
     public String toString() {
         return type + "\t" + depositNumber + "\t" + amount;
     }
+
 
     //<editor-fold desc="Old Code">
     /*public static List<Deposit> readDepositsFromFile() throws IOException, URISyntaxException {

@@ -1,25 +1,24 @@
 package ir.dotin;
 
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class PaymentFileHandler {
-    private static final String DEBTOR = "debtor";//TODO: create Enumeration
+    private static final String DEBTOR = "debtor";
     private static final String CREDITOR = "creditor";
     private static final int MIN_AMOUNT = 100;
     private static final int MAX_AMOUNT = 10000;
     private static final String PAYMENT_FILE_PATH = "D://Payment.txt";
     private static final Random random = new Random();
 
-    public static void main(String[] args) throws IOException {
-        createPaymentFile_New("1.10.100.1", "1.20.100.", 1000);
-    }
-
+    /*  public static void main_(String[] args) throws IOException {
+          createPaymentFile_New("1.10.100.1", "1.20.100.", 1000);
+      }
+  */
     public static List<PaymentRecord> createPaymentFile_New(String debtorDepositNumber, String creditorDepositNumberPrefix, int creditorCount) throws IOException {
         List<PaymentRecord> paymentRecords = new ArrayList<>();
         paymentRecords.add(new PaymentRecord(DEBTOR, debtorDepositNumber, generateRandomAmount()));
@@ -30,7 +29,7 @@ public class PaymentFileHandler {
         return paymentRecords;
     }
 
-    private static int generateRandomAmount() {
+    public static int generateRandomAmount() {
         int rand = 0;
         do {
             rand = random.nextInt((MAX_AMOUNT - MIN_AMOUNT) + 1) + MIN_AMOUNT;
@@ -38,17 +37,20 @@ public class PaymentFileHandler {
         return rand;
     }
 
+
     private static void writePaymentRecordsToFile(List<PaymentRecord> paymentRecords) throws FileNotFoundException {
         PrintWriter printWriter = new PrintWriter(PAYMENT_FILE_PATH);
         for (PaymentRecord paymentRecord : paymentRecords) {
             printWriter.println(paymentRecord.toString());
         }
+
 //        paymentRecords.stream().forEach(pr -> printWriter.println(pr.toString()));// --> this is the java 8 equivalent which can be used instead of for statement
         printWriter.close();
     }
 
+
     //<editor-fold desc="Old Code">
-    static Path path = Paths.get("B://PaymentFile.txt");
+ /*   static Path path = Paths.get("B://PaymentFile.txt");
 
     public static List<PaymentRecord> createpaymentFile() throws NumberFormatException, IOException, FileNotFoundException {
         Random random = new Random();
@@ -74,6 +76,6 @@ public class PaymentFileHandler {
 
 
         return null;
-    }
+    }*/
     //</editor-fold>
 }
