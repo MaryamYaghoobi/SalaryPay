@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.List;
 
 public class TransactionFileHandler {
-    private static final String TRANSACTION_FILE_PATH = "D://Transactions.txt";
+    private static final String TRANSACTION_FILE_PATH = "B://Transactions.txt";
 
     //createTransactionFile
     public static void createTransactionFile(List<Transaction> list) throws IOException {

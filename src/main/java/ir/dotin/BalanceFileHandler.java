@@ -12,7 +12,7 @@ import java.util.List;
 import static ir.dotin.PaymentFileHandler.generateRandomAmount;
 
 public class BalanceFileHandler {
-    private static final String BALANCE_FILE_PATH = "D://Balance.txt";
+    private static final String BALANCE_FILE_PATH = "B://Balance.txt";
     static List<BalanceRecord> balanceRecords = new ArrayList<>();
     static String debtorDepositNumber;
     static String creditorDepositNumberPrefix;
