@@ -1,8 +1,7 @@
 package ir.dotin;
 
-import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -12,7 +11,7 @@ public class PaymentFileHandler {
     private static final String CREDITOR = "creditor";
     private static final int MIN_AMOUNT = 100;
     private static final int MAX_AMOUNT = 10000;
-    private static final String PAYMENT_FILE_PATH = "D://Payment.txt";
+    private static final String PAYMENT_FILE_PATH = "B://Payment.txt";
     private static final Random random = new Random();
 
     /*  public static void main_(String[] args) throws IOException {
@@ -24,6 +23,7 @@ public class PaymentFileHandler {
         paymentRecords.add(new PaymentRecord(DEBTOR, debtorDepositNumber, generateRandomAmount()));
         for (int i = 1; i <= creditorCount; i++) {
             paymentRecords.add(new PaymentRecord(CREDITOR, creditorDepositNumberPrefix + i, generateRandomAmount()));
+
         }
         writePaymentRecordsToFile(paymentRecords);
         return paymentRecords;
@@ -38,14 +38,16 @@ public class PaymentFileHandler {
     }
 
 
-    private static void writePaymentRecordsToFile(List<PaymentRecord> paymentRecords) throws FileNotFoundException {
-        PrintWriter printWriter = new PrintWriter(PAYMENT_FILE_PATH);
+    private static void writePaymentRecordsToFile(List<PaymentRecord> paymentRecords) throws IOException {
+      //  PrintWriter printWriter = new PrintWriter(PAYMENT_FILE_PATH);
+        FileWriter fileWriter=new FileWriter(PAYMENT_FILE_PATH,true);
         for (PaymentRecord paymentRecord : paymentRecords) {
-            printWriter.println(paymentRecord.toString());
+          //  printWriter.println(paymentRecord.toString());
+            fileWriter.write(paymentRecord.toString());
         }
 
-//        paymentRecords.stream().forEach(pr -> printWriter.println(pr.toString()));// --> this is the java 8 equivalent which can be used instead of for statement
-        printWriter.close();
+      //  printWriter.close();
+        fileWriter.close();
     }
 
 

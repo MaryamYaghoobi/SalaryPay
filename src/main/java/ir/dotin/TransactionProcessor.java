@@ -37,7 +37,6 @@ public class TransactionProcessor extends Transaction {
         int debtorBalance = 0;
         int creditorBalance = 0;
         for (Deposit deposit : depositList) {
-
             if (depositType.DEBTOR.equals(deposit.getDepositType())) {
                 debtorBalance = deposit.getInitialBalance();
             } else {
