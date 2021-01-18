@@ -7,14 +7,17 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-public class TransactionFileHandler extends TransactionProcessor {
+import static ir.dotin.files.TransactionVO.creditorDepositNumber;
+import static ir.dotin.files.TransactionVO.debtorDepositNumber;
+
+public class TransactionFileHandler  {
     private static final String TRANSACTION_FILE_PATH = "B://Transactions.txt";
 
     //createTransactionFile
     public static void createTransactionFile(List<TransactionVO> list) throws IOException {
 
 
-        String debtorDepositNumber = "";
+       // String debtorDepositNumber = "";
         String resultText = "";
         BufferedWriter writer = new BufferedWriter(new FileWriter(TRANSACTION_FILE_PATH));
         for (TransactionProcessor deposit : list) {
@@ -22,8 +25,8 @@ public class TransactionFileHandler extends TransactionProcessor {
             if (doWithdrawTransaction)
                 debtorDepositNumber = deposit.getDepositNumber();
             else if (doDepositTransaction)
-                deposit.getDepositNumber();
-            resultText += debtorDepositNumber + "\t" + deposit.getDepositNumber() + "\t" + deposit.getInitialBalance() + "\n";
+                creditorDepositNumber=  deposit.getDepositNumber();
+            resultText += debtorDepositNumber + "\t" + creditorDepositNumber + "\t" + deposit.getInitialBalance() + "\n";
         }
         writer.write(resultText);
         writer.newLine();
