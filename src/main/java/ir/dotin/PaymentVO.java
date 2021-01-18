@@ -1,21 +1,23 @@
 package ir.dotin;
 
-public class PaymentRecord {
-    String type;
-    String depositNumber;
-    Integer amount;
+import java.math.BigDecimal;
 
-    public PaymentRecord(String type, String depositNumber, Integer amount) {
+public class PaymentVO {
+    depositType type;
+    String depositNumber;
+    BigDecimal amount;
+
+    public PaymentVO(depositType type, String depositNumber, BigDecimal amount) {
         this.type = type;
         this.depositNumber = depositNumber;
         this.amount = amount;
     }
 
-    public String getType() {
+    public depositType getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(depositType type) {
         this.type = type;
     }
 
@@ -27,11 +29,11 @@ public class PaymentRecord {
         this.depositNumber = depositNumber;
     }
 
-    public Integer getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(Integer amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
 

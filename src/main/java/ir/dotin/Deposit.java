@@ -1,12 +1,15 @@
+/*
 package ir.dotin;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class Deposit {
-    private int initialBalance; // موجودی اولیه
+    private BigDecimal initialBalance; // موجودی اولیه
     private String depositNumber;
-    private String depositType;
-    private int upperBound;
+    private depositType depositType;
+  */
+/*  private int upperBound;
 
     public int getUpperBound() {
         return upperBound;
@@ -15,22 +18,23 @@ public class Deposit {
     public void setUpperBound(int upperBound) {
         this.upperBound = upperBound;
 
-    }
+    }*//*
 
 
-    public int getInitialBalance() {
+
+    public BigDecimal getInitialBalance() {
         return initialBalance;
     }
 
-    public void setInitalBalance(int initalBalance) {
+    public void setInitalBalance(BigDecimal initalBalance) {
         this.initialBalance = initalBalance;
     }
 
-    public String getDepositType() {
+    public depositType getDepositType() {
         return depositType;
     }
 
-    public void setDepositType(String depositType) {
+    public void setDepositType(depositType depositType) {
         this.depositType = depositType;
 
     }
@@ -45,24 +49,29 @@ public class Deposit {
 
     }
 
-    public List<Transaction> doWithdrawTransaction(Transaction transaction) {
+   */
+/* public static List<TransactionVO> doWithdrawTransaction(TransactionVO transactionVO) {
 
-        int withdrawamount = getInitialBalance() - transaction.getAmount();
+        BigDecimal withdrawamount = getInitialBalance() - transactionVO.getAmount();
         setInitalBalance(withdrawamount);
         return null;
     }
+*//*
 
 
-    public List<Transaction> doDepositTransaction(Transaction transaction) {
+  */
+/*  public static List<TransactionVO> doDepositTransaction(TransactionVO transactionVO) {
 
-        int depositAmount = getInitialBalance() + transaction.getAmount();
+        BigDecimal depositAmount = getInitialBalance() + transactionVO.getAmount();
         setInitalBalance(depositAmount);
 
         // return false;
         return null;
     }
+*//*
 
 
 }
 
 
+*/
