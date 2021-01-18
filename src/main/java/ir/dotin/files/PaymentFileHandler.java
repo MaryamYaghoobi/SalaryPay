@@ -1,4 +1,4 @@
-package ir.dotin;
+package ir.dotin.files;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -9,8 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static ir.dotin.depositType.CREDITOR;
-import static ir.dotin.depositType.DEBTOR;
+import static ir.dotin.business.depositType.CREDITOR;
+import static ir.dotin.business.depositType.DEBTOR;
 
 public class PaymentFileHandler {
     // private static final String DEBTOR = "debtor";

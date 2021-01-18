@@ -1,4 +1,4 @@
-package ir.dotin;
+package ir.dotin.files;
 
 import java.io.*;
 import java.nio.file.Files;
@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static ir.dotin.PaymentFileHandler.generateRandomAmount;
+import static ir.dotin.files.PaymentFileHandler.generateRandomAmount;
 
 public class BalanceFileHandler {
     private static final String BALANCE_FILE_PATH = "B://Balance.txt";

@@ -1,4 +1,4 @@
-package ir.dotin;
+package ir.dotin.business;
 
 public enum depositType {
     DEBTOR,

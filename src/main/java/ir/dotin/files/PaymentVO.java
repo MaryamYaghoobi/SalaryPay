@@ -1,4 +1,6 @@
-package ir.dotin;
+package ir.dotin.files;
+
+import ir.dotin.business.depositType;
 
 import java.math.BigDecimal;
 

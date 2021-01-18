@@ -1,9 +1,11 @@
 
-package ir.dotin;
+package ir.dotin.files;
 
-        import java.math.BigDecimal;
+import ir.dotin.business.TransactionProcessor;
 
-public class TransactionVO extends Deposit {
+import java.math.BigDecimal;
+
+public class TransactionVO extends TransactionProcessor {
 
     BigDecimal amount;
     String debtorDepositNumber;

@@ -1,12 +1,15 @@
-package ir.dotin;
+package ir.dotin.business;
 
 import ir.dotin.exception.InadequateInitialBalanceException;
 import ir.dotin.exception.ViolatedUpperBoundException;
+import ir.dotin.files.BalanceVO;
+import ir.dotin.files.PaymentVO;
+import ir.dotin.files.TransactionVO;
 
 import java.math.BigDecimal;
 import java.util.List;
 
-public class TransactionProcessor extends TransactionVO {
+public class TransactionProcessor {
     private static List<TransactionProcessor> deposits;
 
     public static List<TransactionProcessor> getDeposits() {
@@ -17,7 +20,7 @@ public class TransactionProcessor extends TransactionVO {
 //Variable Deposit
     private BigDecimal initialBalance; // موجودی اولیه
     private String depositNumber;
-    private depositType depositType;
+    private ir.dotin.business.depositType depositType;
 
     public BigDecimal getInitialBalance() {
         return initialBalance;
@@ -47,6 +50,7 @@ public class TransactionProcessor extends TransactionVO {
     }
 
     //------------------------------------------------------
+
     //Deposit
     public List<TransactionVO> doWithdrawTransaction(TransactionVO transactionVO) {
 
@@ -57,7 +61,7 @@ public class TransactionProcessor extends TransactionVO {
 
     //-------------------------------------------------------
 //Deposit
-    public  List<TransactionVO> doDepositTransaction(TransactionVO transactionVO) {
+    public List<TransactionVO> doDepositTransaction(TransactionVO transactionVO) {
 
         BigDecimal depositAmount = getInitialBalance() + transactionVO.getAmount();
         setInitalBalance(depositAmount);
