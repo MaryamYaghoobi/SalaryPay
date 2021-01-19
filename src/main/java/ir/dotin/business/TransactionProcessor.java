@@ -1,7 +1,6 @@
 package ir.dotin.business;
 
 import ir.dotin.exception.InadequateInitialBalanceException;
-import ir.dotin.exception.ViolatedUpperBoundException;
 import ir.dotin.files.BalanceVO;
 import ir.dotin.files.PaymentVO;
 import ir.dotin.files.TransactionVO;
@@ -10,11 +9,12 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public class TransactionProcessor {
-    private static List<TransactionProcessor> deposits;
+
+   /* private static List<TransactionProcessor> deposits;
 
     public static List<TransactionProcessor> getDeposits() {
         return deposits;
-    }
+    }*/
 
     //---------------------------------------------------
 //Variable Deposit
@@ -26,7 +26,7 @@ public class TransactionProcessor {
         return initialBalance;
     }
 
-    public void setInitalBalance(BigDecimal initalBalance) {
+    public  void setInitalBalance(BigDecimal initalBalance) {
         this.initialBalance = initalBalance;
     }
 
@@ -52,74 +52,85 @@ public class TransactionProcessor {
     //------------------------------------------------------
 
     //Deposit
-    /*public List<TransactionVO> doWithdrawTransaction(TransactionVO transactionVO) {
+   // public List<TransactionVO> doWithdrawTransaction(TransactionVO transactionVO) {
+    private static void doWithdrawTransaction() {
+        PaymentVO pay = new PaymentVO();
+        int withdrawamount = getInitialBalance() - pay.getAmount();
+        return  setInitalBalance(BigDecimal.valueOf(withdrawamount));
+       // return null;
 
-        BigDecimal withdrawamount = getInitialBalance() - transactionVO.getAmount();
-        setInitalBalance(withdrawamount);
-        return null;
-    }*/
+
+
+    }
 //======================================
-public List<PaymentVO> doWithdrawTransaction(PaymentVO paymentVO) {
 
-    BigDecimal withdrawamount = getInitialBalance() - paymentVO.getAmount();
-    setInitalBalance(withdrawamount);
-    return null;
-}
-    //-------------------------------------------------------
-//Deposit
-    public List<TransactionVO> doDepositTransaction(TransactionVO transactionVO) {
-
-        BigDecimal depositAmount = getInitialBalance() + transactionVO.getAmount();
-        setInitalBalance(depositAmount);
+    //Deposit
+   // public List<TransactionVO> doDepositTransaction(TransactionVO transactionVO) {
+    private static BigDecimal doDepositTransaction() {
+        PaymentVO pay = new PaymentVO();
+        BigDecimal depositAmount = getInitialBalance() + pay.getAmount();
+        return  setInitalBalance(depositAmount);
 
         // return false;
-        return null;
+
     }
 
 
     //---------------------------------------------
     public static boolean validateWithdraw(TransactionProcessor deposit) {
 
-        return true;
-        // return getAmount() <= deposit.getInitialBalance();
 
+        // return getAmount() <= deposit.getInitialBalance();
+        PaymentVO pay = new PaymentVO();
+         BigDecimal f = pay.getAmount();
+        BigDecimal s =  deposit.getInitialBalance();
+
+        if (f <= s)
+        return true;
+        else
+        return false;
     }
 
     //----------------------------------------------
     public static List<TransactionVO> prcessPaymentRecord(List<BalanceVO> depositBalances, List<PaymentVO> paymentVOS)
-            throws ViolatedUpperBoundException, InadequateInitialBalanceException {
-        List<TransactionProcessor> depositList = TransactionProcessor.getDeposits();
+            throws  InadequateInitialBalanceException {
+        //  List<TransactionProcessor> depositList = TransactionProcessor.getDeposits();
 
         BigDecimal debtorBalance = BigDecimal.valueOf(0);
         BigDecimal creditorBalance = BigDecimal.valueOf(0);
-        for (TransactionProcessor deposit : depositList) {
-            if (depositType.DEBTOR.equals(deposit.getDepositType())) {
-                debtorBalance = deposit.getInitialBalance();
-            } else {
-                creditorBalance += deposit.getInitialBalance();
+        //   for (TransactionProcessor deposit : depositList) {
+        for (PaymentVO paymentVO : paymentVOS) {
+            if (!validateWithdraw(paymentVO)) {
+                throw new InadequateInitialBalanceException("Not enough balance!");
+            } else
+                // if (depositType.DEBTOR.equals(deposit.getDepositType())) {
+                if (depositType.DEBTOR.equals(paymentVO.getType())) {
+                    // debtorBalance = deposit.getInitialBalance();
+                    //debtorBalance = paymentVO.getAmount();
+                   debtorBalance= doWithdrawTransaction();
+                } else {
+                    //  creditorBalance += deposit.getInitialBalance();
+                  //  creditorBalance += paymentVO.getAmount();
+                    creditorBalance=doDepositTransaction();
+                }
+           /* if (debtorBalance > 0 && debtorBalance < creditorBalance) {
+                throw new InadequateInitialBalanceException("Not enough balance!");*/
             }
 
-            if (debtorBalance > 0 && debtorBalance < creditorBalance) {
-                throw new InadequateInitialBalanceException("Not enough balance!");
+            //      List<TransactionVO> transactionVOS = deposit.doWithdrawTransaction(TransactionVO deposit);
+            //     return transactionVOS;
 
-            } else
-                // return false;
+        return null;
+    }
 
-                //  System.out.println("Upper bound balance restriction violated!");  // log4j]
-                //   else
-                if (validateWithdraw(deposit)) {
-                    //      List<TransactionVO> transactionVOS = deposit.doWithdrawTransaction(TransactionVO deposit);
-                    //     return transactionVOS;
+    }
 
-                } else {
-                    throw new ViolatedUpperBoundException("Upper bound balance restriction violated!");
-                }
 
-        }
+
+
 
 
 //-----------------------
 
-        return null;
-    }
-}
+
+

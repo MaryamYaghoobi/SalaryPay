@@ -8,32 +8,32 @@ import java.util.List;
 import static ir.dotin.files.TransactionVO.creditorDepositNumber;
 import static ir.dotin.files.TransactionVO.debtorDepositNumber;
 
-public class TransactionFileHandler  {
+public class TransactionFileHandler {
     private static final String TRANSACTION_FILE_PATH = "B://Transactions.txt";
 
     //createTransactionFile
     public static void createTransactionFile(List<TransactionVO> list) throws IOException, ClassNotFoundException {
-        TransactionVO transactionVO=new TransactionVO();
-
-       // String debtorDepositNumber = "";
+        TransactionVO transactionVO = new TransactionVO();
+       // TransactionProcessor transaction = new TransactionProcessor();
+        // String debtorDepositNumber = "";
         String resultText = "";
         //write serialize
-        FileOutputStream Tout=new   FileOutputStream(TRANSACTION_FILE_PATH);
-        ObjectOutputStream transactionOut=new  ObjectOutputStream(Tout);
+        FileOutputStream Tout = new FileOutputStream(TRANSACTION_FILE_PATH);
+        ObjectOutputStream transactionOut = new ObjectOutputStream(Tout);
 //-----------------------------------------------------------
-      //  BufferedWriter writer = new BufferedWriter(new FileWriter(TRANSACTION_FILE_PATH));
+        //  BufferedWriter writer = new BufferedWriter(new FileWriter(TRANSACTION_FILE_PATH));
         for (TransactionProcessor deposit : list) {
             // if ("debtor".equals(deposit.getDepositType()))
             if (doWithdrawTransaction)
                 debtorDepositNumber = deposit.getDepositNumber();
             else if (doDepositTransaction)
-                creditorDepositNumber=  deposit.getDepositNumber();
+                creditorDepositNumber = deposit.getDepositNumber();
             resultText += debtorDepositNumber + "\t" + creditorDepositNumber + "\t" + deposit.getInitialBalance() + "\n";
         }
 //
         transactionOut.writeObject(resultText);
-     //   writer.write(resultText);
-      //  writer.newLine();
+        //   writer.write(resultText);
+        //  writer.newLine();
         transactionOut.close();
 //--------------------------------
         // read and output serialize
