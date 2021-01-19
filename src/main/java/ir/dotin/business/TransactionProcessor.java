@@ -20,7 +20,7 @@ public class TransactionProcessor {
 //Variable Deposit
     private BigDecimal initialBalance; // موجودی اولیه
     private String depositNumber;
-    private ir.dotin.business.depositType depositType;
+    private static ir.dotin.business.depositType depositType;
 
     public BigDecimal getInitialBalance() {
         return initialBalance;
@@ -52,13 +52,19 @@ public class TransactionProcessor {
     //------------------------------------------------------
 
     //Deposit
-    public List<TransactionVO> doWithdrawTransaction(TransactionVO transactionVO) {
+    /*public List<TransactionVO> doWithdrawTransaction(TransactionVO transactionVO) {
 
         BigDecimal withdrawamount = getInitialBalance() - transactionVO.getAmount();
         setInitalBalance(withdrawamount);
         return null;
-    }
+    }*/
+//======================================
+public List<PaymentVO> doWithdrawTransaction(PaymentVO paymentVO) {
 
+    BigDecimal withdrawamount = getInitialBalance() - paymentVO.getAmount();
+    setInitalBalance(withdrawamount);
+    return null;
+}
     //-------------------------------------------------------
 //Deposit
     public List<TransactionVO> doDepositTransaction(TransactionVO transactionVO) {
@@ -80,7 +86,7 @@ public class TransactionProcessor {
     }
 
     //----------------------------------------------
-    public List<TransactionVO> prcessPaymentRecord(List<BalanceVO> depositBalances, List<PaymentVO> paymentVOS)
+    public static List<TransactionVO> prcessPaymentRecord(List<BalanceVO> depositBalances, List<PaymentVO> paymentVOS)
             throws ViolatedUpperBoundException, InadequateInitialBalanceException {
         List<TransactionProcessor> depositList = TransactionProcessor.getDeposits();
 

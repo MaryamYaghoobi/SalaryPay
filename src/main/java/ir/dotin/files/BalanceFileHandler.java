@@ -11,7 +11,7 @@ import static ir.dotin.files.PaymentFileHandler.generateRandomAmount;
 
 public class BalanceFileHandler {
     private static final String BALANCE_FILE_PATH = "B://Balance.txt";
-    static List<BalanceVO> balanceVOs = new ArrayList<>();
+    public static List<BalanceVO> balanceVOs = new ArrayList<>();
     static String debtorDepositNumber;
     static String creditorDepositNumberPrefix;
 

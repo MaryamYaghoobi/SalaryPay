@@ -17,7 +17,7 @@ public class PaymentFileHandler {
     private static final String PAYMENT_FILE_PATH = "B://Payment.txt";
     private static final Random random = new Random();
 
-    public static List<PaymentVO> createPaymentFile_New(String debtorDepositNumber, String creditorDepositNumberPrefix, int creditorCount) throws IOException, ClassNotFoundException {
+    public static List<PaymentVO> createPaymentFile(String debtorDepositNumber, String creditorDepositNumberPrefix, int creditorCount) throws IOException, ClassNotFoundException {
         List<PaymentVO> paymentVOs = new ArrayList<>();
         PaymentVO paymentVO=new PaymentVO();
         paymentVOs.add(new PaymentVO(DEBTOR, debtorDepositNumber, generateRandomAmount()));
