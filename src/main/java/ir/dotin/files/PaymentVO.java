@@ -2,9 +2,10 @@ package ir.dotin.files;
 
 import ir.dotin.business.depositType;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class PaymentVO {
+public class PaymentVO implements Serializable {
     depositType type;
     String depositNumber;
     BigDecimal amount;
@@ -13,6 +14,10 @@ public class PaymentVO {
         this.type = type;
         this.depositNumber = depositNumber;
         this.amount = amount;
+    }
+
+    public PaymentVO() {
+
     }
 
     public depositType getType() {
