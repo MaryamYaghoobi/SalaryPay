@@ -3,9 +3,10 @@ package ir.dotin.files;
 
 import ir.dotin.business.TransactionProcessor;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class TransactionVO extends TransactionProcessor {
+public class TransactionVO extends TransactionProcessor implements Serializable {
 
     private  BigDecimal amount;
    public static String debtorDepositNumber;

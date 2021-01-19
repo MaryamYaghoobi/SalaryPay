@@ -2,9 +2,7 @@ package ir.dotin.files;
 
 import ir.dotin.business.TransactionProcessor;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.util.List;
 
 import static ir.dotin.files.TransactionVO.creditorDepositNumber;
@@ -14,12 +12,16 @@ public class TransactionFileHandler  {
     private static final String TRANSACTION_FILE_PATH = "B://Transactions.txt";
 
     //createTransactionFile
-    public static void createTransactionFile(List<TransactionVO> list) throws IOException {
-
+    public static void createTransactionFile(List<TransactionVO> list) throws IOException, ClassNotFoundException {
+        TransactionVO transactionVO=new TransactionVO();
 
        // String debtorDepositNumber = "";
         String resultText = "";
-        BufferedWriter writer = new BufferedWriter(new FileWriter(TRANSACTION_FILE_PATH));
+        //write serialize
+        FileOutputStream Tout=new   FileOutputStream(TRANSACTION_FILE_PATH);
+        ObjectOutputStream transactionOut=new  ObjectOutputStream(Tout);
+//-----------------------------------------------------------
+      //  BufferedWriter writer = new BufferedWriter(new FileWriter(TRANSACTION_FILE_PATH));
         for (TransactionProcessor deposit : list) {
             // if ("debtor".equals(deposit.getDepositType()))
             if (doWithdrawTransaction)
@@ -28,9 +30,20 @@ public class TransactionFileHandler  {
                 creditorDepositNumber=  deposit.getDepositNumber();
             resultText += debtorDepositNumber + "\t" + creditorDepositNumber + "\t" + deposit.getInitialBalance() + "\n";
         }
-        writer.write(resultText);
-        writer.newLine();
-        writer.close();
+//
+        transactionOut.writeObject(resultText);
+     //   writer.write(resultText);
+      //  writer.newLine();
+        transactionOut.close();
+//--------------------------------
+        // read and output serialize
+        FileInputStream transactionIn = new FileInputStream(TRANSACTION_FILE_PATH);
+        ObjectInputStream in = new ObjectInputStream(transactionIn);
+        transactionVO = (TransactionVO) in.readObject();
+        System.out.println(transactionVO);
+        in.close();
+        transactionIn.close();
+
     }
 }
 
