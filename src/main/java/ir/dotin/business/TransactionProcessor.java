@@ -76,8 +76,8 @@ public class TransactionProcessor {
 
         // return getAmount() <= deposit.getInitialBalance();
         PaymentVO pay = new PaymentVO();
-
-        if (pay.getAmount().compareTo(pay.getAmount()) == 0 || pay.getAmount().compareTo(pay.getAmount()) == 1)
+        TransactionProcessor trx=new TransactionProcessor();
+        if(trx.getInitialBalance().compareTo(pay.getAmount()) == 0 ||trx.getInitialBalance().compareTo(pay.getAmount()) == 1)
             return true;
         else
             return false;
