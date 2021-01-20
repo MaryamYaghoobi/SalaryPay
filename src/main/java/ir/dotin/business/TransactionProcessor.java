@@ -46,26 +46,26 @@ public class TransactionProcessor {
     //------------------------------------------------------
 
     //Deposit{
-    public static BigDecimal doWithdrawTransaction() {
+    public static boolean doWithdrawTransaction() {
         PaymentVO pay = new PaymentVO();
         TransactionProcessor trx=new TransactionProcessor();
         BigDecimal withdrawAmount = trx.getInitialBalance().subtract(pay.getAmount());
         trx.setInitalBalance(withdrawAmount);
-        return withdrawAmount;
-       // return true;
+        //return withdrawAmount;
+       return true;
     }
 //======================================
 
     //Deposit
     // public List<TransactionVO> doDepositTransaction(TransactionVO transactionVO) {
-    public static BigDecimal doDepositTransaction() {
+    public static boolean doDepositTransaction() {
         PaymentVO pay = new PaymentVO();
         TransactionProcessor trx=new TransactionProcessor();
         BigDecimal depositAmount = trx.getInitialBalance().add(pay.getAmount());
+       trx.setInitalBalance(depositAmount);
+   //    return trx.setInitalBalance(depositAmount);
 
-       return trx.setInitalBalance(depositAmount);
-
-        // return true;
+         return true;
 
     }
 
@@ -88,8 +88,9 @@ public class TransactionProcessor {
             throws InadequateInitialBalanceException {
         //  List<TransactionProcessor> depositList = TransactionProcessor.getDeposits();
 
-        BigDecimal debtorBalance = BigDecimal.valueOf(0);
-        BigDecimal creditorBalance = BigDecimal.valueOf(0);
+       // BigDecimal debtorBalance = BigDecimal.valueOf(0);
+        String debtorBalance = "";
+        String creditorBalance = "";
         //   for (TransactionProcessor deposit : depositList) {
         for (PaymentVO paymentVO : paymentVOS) {
             if (!validateWithdraw(depositBalances)) {
@@ -99,11 +100,11 @@ public class TransactionProcessor {
                 if (depositType.DEBTOR.equals(paymentVO.getType())) {
                     // debtorBalance = deposit.getInitialBalance();
                     //debtorBalance = paymentVO.getAmount();
-                    debtorBalance = doWithdrawTransaction();
+                    debtorBalance = String.valueOf(doWithdrawTransaction());
                 } else {
                     //  creditorBalance += deposit.getInitialBalance();
                     //  creditorBalance += paymentVO.getAmount();
-                    creditorBalance = doDepositTransaction();
+                    creditorBalance = String.valueOf(doDepositTransaction());
                 }
            /* if (debtorBalance > 0 && debtorBalance < creditorBalance) {
                 throw new InadequateInitialBalanceException("Not enough balance!");*/
