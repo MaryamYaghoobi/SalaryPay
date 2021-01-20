@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="PaymentTrx" />
         <module name="Project2.1" />
+        <module name="SalaryPayment" />
       </profile>
     </annotationProcessing>
   </component>
