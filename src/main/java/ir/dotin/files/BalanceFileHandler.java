@@ -25,7 +25,7 @@ public class BalanceFileHandler {
         writeBalanceRecordsToFile(balanceVOs);
         // read and output serialize
 //----------------------------------------------------------
-        FileInputStream balanceIn = new FileInputStream(BALANCE_FILE_PATH);
+       FileInputStream balanceIn = new FileInputStream(BALANCE_FILE_PATH);
         ObjectInputStream in = new ObjectInputStream(balanceIn);
         balanceVO = (BalanceVO) in.readObject();
         System.out.println(balanceVO);

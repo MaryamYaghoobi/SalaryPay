@@ -19,7 +19,7 @@ public class PaymentFileHandler {
 
     public static List<PaymentVO> createPaymentFile(String debtorDepositNumber, String creditorDepositNumberPrefix, int creditorCount) throws IOException, ClassNotFoundException {
         List<PaymentVO> paymentVOs = new ArrayList<>();
-        PaymentVO paymentVO=new PaymentVO();
+      //  PaymentVO paymentVO=new PaymentVO();
         paymentVOs.add(new PaymentVO(DEBTOR, debtorDepositNumber, generateRandomAmount()));
         for (int i = 1; i <= creditorCount; i++) {
             paymentVOs.add(new PaymentVO(CREDITOR, creditorDepositNumberPrefix + i, generateRandomAmount()));
@@ -28,10 +28,11 @@ public class PaymentFileHandler {
         writePaymentRecordsToFile(paymentVOs);
         // read and output serialize
 //----------------------------------------------------------
-        FileInputStream payIn = new FileInputStream(PAYMENT_FILE_PATH);
+       FileInputStream payIn = new FileInputStream(PAYMENT_FILE_PATH);
         ObjectInputStream in = new ObjectInputStream(payIn);
-        paymentVO = (PaymentVO) in.readObject();
-        System.out.println(paymentVO);
+      // paymentVO = (PaymentVO) in.readObject();
+        paymentVOs.add((PaymentVO)in.readObject());
+        System.out.println(paymentVOs);
         in.close();
         payIn.close();
 //----------------------------------------------------------
