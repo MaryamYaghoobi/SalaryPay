@@ -10,17 +10,10 @@ import java.util.List;
 
 public class TransactionProcessor {
 
-   /* private static List<TransactionProcessor> deposits;
-
-    public static List<TransactionProcessor> getDeposits() {
-        return deposits;
-    }*/
-
-    //---------------------------------------------------
-//Variable Deposit
+    //Variable Deposit
     private static BigDecimal initialBalance; // موجودی اولیه
     private String depositNumber;
-    private static ir.dotin.business.depositType depositType;
+    private static depositType depositType;
 
     public BigDecimal getInitialBalance() {
         return initialBalance;
@@ -52,25 +45,27 @@ public class TransactionProcessor {
 
     //------------------------------------------------------
 
-    //Deposit
-    // public List<TransactionVO> doWithdrawTransaction(TransactionVO transactionVO) {
-    private static BigDecimal doWithdrawTransaction() {
+    //Deposit{
+    public static BigDecimal doWithdrawTransaction() {
         PaymentVO pay = new PaymentVO();
-        BigDecimal withdrawamount = getInitialBalance().subtract(pay.getAmount());
-        setInitalBalance(withdrawamount);
-        return withdrawamount;
+        TransactionProcessor trx=new TransactionProcessor();
+        BigDecimal withdrawAmount = trx.getInitialBalance().subtract(pay.getAmount());
+        trx.setInitalBalance(withdrawAmount);
+        return withdrawAmount;
+       // return true;
     }
 //======================================
 
     //Deposit
     // public List<TransactionVO> doDepositTransaction(TransactionVO transactionVO) {
-    private static BigDecimal doDepositTransaction() {
+    public static BigDecimal doDepositTransaction() {
         PaymentVO pay = new PaymentVO();
-        BigDecimal depositAmount = getInitialBalance().add(pay.getAmount());
+        TransactionProcessor trx=new TransactionProcessor();
+        BigDecimal depositAmount = trx.getInitialBalance().add(pay.getAmount());
 
-        return setInitalBalance(depositAmount);
+       return trx.setInitalBalance(depositAmount);
 
-        // return false;
+        // return true;
 
     }
 
