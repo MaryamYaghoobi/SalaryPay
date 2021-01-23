@@ -7,6 +7,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class PaymentTransactionApp {
     public static final String FILE_PATH_PREFIX = "E://";
@@ -27,7 +29,12 @@ public class PaymentTransactionApp {
     }
 
     public static void main(String[] args) {
-        try {
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
             List<PaymentVO> paymentVOs = PaymentFileHandler.createPaymentFile(DEBTOR_DEPOSIT_NUMBER, CREDITOR_DEPOSIT_NUMBER_PREFIX, CREDITOR_COUNT);
             List<BalanceVO> depositBalances = BalanceFileHandler.createInitialBalanceFile(balanceVOs);
             List<TransactionVO> transactionVOS = TransactionProcessor.processPaymentRecords(depositBalances, paymentVOs);
@@ -37,6 +44,10 @@ public class PaymentTransactionApp {
         } catch (Exception e) {
             e.printStackTrace();
         }
+                System.out.println("ExecutorService");
+
+            }
+        });
     }
 }
 

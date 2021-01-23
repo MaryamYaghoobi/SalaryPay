@@ -57,16 +57,18 @@ public class TransactionProcessor {
         return totalCreditorAmount;
     }
 
+    static TransactionVO transactionVO = new TransactionVO();
+
     private static TransactionVO processPayment(List<BalanceVO> depositBalances, String debtorDepositNumber, PaymentVO creditorPaymentVO) {
         TransactionVO transactionVO = new TransactionVO();
         transactionVO.setDebtorDepositNumber(debtorDepositNumber);
         transactionVO.setCreditorDepositNumber(creditorPaymentVO.getDepositNumber());
         transactionVO.setAmount(creditorPaymentVO.getAmount());
         for (BalanceVO balanceVO : depositBalances) {
-            if (balanceVO.getDepositNumber().equals(creditorPaymentVO.getDepositNumber())) {
+            if (balanceVO.getDepositNumber().equals(creditorPaymentVO.getDepositNumber())) {//Creditor
                 balanceVO.setAmount(balanceVO.getAmount().add(creditorPaymentVO.getAmount()));
                 transactionVO.setAmount(balanceVO.getAmount());
-            } else if (balanceVO.getDepositNumber().equals(debtorDepositNumber)) {
+            } else if (balanceVO.getDepositNumber().equals(debtorDepositNumber)) {//Debtor
                 balanceVO.setAmount(balanceVO.getAmount().subtract(creditorPaymentVO.getAmount()));
                 transactionVO.setAmount(balanceVO.getAmount());
             }
@@ -74,7 +76,9 @@ public class TransactionProcessor {
         return transactionVO;
     }
 
+
 }
+
 
 
 
