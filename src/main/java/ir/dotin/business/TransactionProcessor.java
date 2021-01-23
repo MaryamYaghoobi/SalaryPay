@@ -65,8 +65,10 @@ public class TransactionProcessor {
         for (BalanceVO balanceVO : depositBalances) {
             if (balanceVO.getDepositNumber().equals(creditorPaymentVO.getDepositNumber())) {
                 balanceVO.setAmount(balanceVO.getAmount().add(creditorPaymentVO.getAmount()));
+                transactionVO.setAmount(balanceVO.getAmount());
             } else if (balanceVO.getDepositNumber().equals(debtorDepositNumber)) {
                 balanceVO.setAmount(balanceVO.getAmount().subtract(creditorPaymentVO.getAmount()));
+                transactionVO.setAmount(balanceVO.getAmount());
             }
         }
         return transactionVO;

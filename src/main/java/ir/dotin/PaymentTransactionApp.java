@@ -8,9 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-//import static ir.dotin.files.BalanceFileHandler.balanceVOs;
-
-
 public class PaymentTransactionApp {
     public static final String FILE_PATH_PREFIX = "E://";
     public static final String BALANCE_FILE_PATH = FILE_PATH_PREFIX + "Balance.txt";
