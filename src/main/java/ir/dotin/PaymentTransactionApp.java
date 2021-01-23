@@ -23,31 +23,36 @@ public class PaymentTransactionApp {
     private static final int MIN_AMOUNT = 100;
     private static final int MAX_AMOUNT = 10000;
     private static final Random random = new Random();
+    static ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public static BigDecimal generateRandomAmount() {
         return BigDecimal.valueOf(random.nextInt((MAX_AMOUNT - MIN_AMOUNT) + 1) + MIN_AMOUNT);
     }
 
     public static void main(String[] args) {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
-        executorService.submit(new Runnable() {
+        try {
+            executorService.submit(new Runnable() {
 
-            @Override
-            public void run() {
-                try {
-            List<PaymentVO> paymentVOs = PaymentFileHandler.createPaymentFile(DEBTOR_DEPOSIT_NUMBER, CREDITOR_DEPOSIT_NUMBER_PREFIX, CREDITOR_COUNT);
-            List<BalanceVO> depositBalances = BalanceFileHandler.createInitialBalanceFile(balanceVOs);
-            List<TransactionVO> transactionVOS = TransactionProcessor.processPaymentRecords(depositBalances, paymentVOs);
-            BalanceFileHandler.createFinalBalanceFile(depositBalances);
-            TransactionFileHandler.createTransactionFile(transactionVOS, depositBalances);
+                @Override
+                public void run() {
+                    try {
+                        List<PaymentVO> paymentVOs = PaymentFileHandler.createPaymentFile(DEBTOR_DEPOSIT_NUMBER, CREDITOR_DEPOSIT_NUMBER_PREFIX, CREDITOR_COUNT);
+                        List<BalanceVO> depositBalances = BalanceFileHandler.createInitialBalanceFile(balanceVOs);
+                        List<TransactionVO> transactionVOS = TransactionProcessor.processPaymentRecords(depositBalances, paymentVOs);
+                        BalanceFileHandler.createFinalBalanceFile(depositBalances);
+                        TransactionFileHandler.createTransactionFile(transactionVOS, depositBalances);
 
-        } catch (Exception e) {
-            e.printStackTrace();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println("ExecutorService");
+
+                }
+            });
+
+        } finally {
+            executorService.shutdown();
         }
-                System.out.println("ExecutorService");
-
-            }
-        });
     }
 }
 
